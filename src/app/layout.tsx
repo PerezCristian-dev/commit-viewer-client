@@ -1,14 +1,7 @@
+"use client";
+import { store } from "@/redux/store";
+import { Provider } from "react-redux";
 import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Commit Viewer",
-  icons: ["./github-mark-white.svg"],
-  description: "View your current github repository commits",
-};
 
 export default function RootLayout({
   children,
@@ -23,7 +16,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className="h-[100vh]">
+        <Provider store={store}>{children}</Provider>
+      </body>
     </html>
   );
 }
