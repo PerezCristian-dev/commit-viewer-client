@@ -8,14 +8,13 @@ interface CommitCardProps {
 
 export const CommitCard = (props: CommitCardProps) => {
   const { data } = props;
-  const timeStatus: string = getTimeStatus(
-    new Date(data.commit.committer.date)
-  );
+  const commitDate = data.commit.committer.date;
+  const timeStatus: string = getTimeStatus(new Date(commitDate));
 
   return (
-    <div className="card shadow-xl border">
+    <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950">
       <div className="card-body">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between px-3">
           <div className="flex items-center">
             <img
               className="w-12 h-12 rounded-full mr-2"
@@ -25,9 +24,15 @@ export const CommitCard = (props: CommitCardProps) => {
           </div>
           <span className="text-info text-sm">{timeStatus}</span>
         </div>
-        <div className="card-actions bg-gray-900 rounded-md p-4">
+        <div className="card-actions bg-gray-900 rounded-md p-4 justify-end">
           <p>{data.commit.message}</p>
-          <button className="px-4 bg-info rounded-md">More</button>
+          <a
+            href={data.html_url}
+            target="_blank"
+            className="px-4 bg-[var(--github-green)] rounded-md hover:bg-[var(--github-green-light)]"
+          >
+            Details
+          </a>
         </div>
       </div>
     </div>

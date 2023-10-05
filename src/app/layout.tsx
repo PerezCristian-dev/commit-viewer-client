@@ -16,7 +16,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      <body className="h-[100vh]">
+      <body>
         <Provider store={store}>{children}</Provider>
       </body>
     </html>

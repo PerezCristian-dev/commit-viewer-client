@@ -13,7 +13,6 @@ export function getTimeStatus(targetDate: Date): string {
   } else if (hoursAgo < 24) {
     return `${hoursAgo} hour${hoursAgo !== 1 ? "s" : ""} ago`;
   } else {
-    // You can add more logic here for days, weeks, months, etc.
-    return moment(targetDate).format("mm/dd/yyyy");
+    return "Commits on " + moment(targetDate).format("MMMM DD, YY");
   }
 }
