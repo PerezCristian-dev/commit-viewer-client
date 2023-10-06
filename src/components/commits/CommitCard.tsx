@@ -12,7 +12,7 @@ export const CommitCard = ({ commit }: CommitCardProps) => {
   const commentCount = commit.comments[0] === null ? 0 : commit.comments.length;
 
   return (
-    <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950">
+    <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950 lg:min-w-[800px] lg:max-w-[800px]">
       <div className="card-body p-4 md:p-6">
         <div className="flex items-center px-3 justify-between">
           <div className="flex items-center">

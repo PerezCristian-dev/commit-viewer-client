@@ -1,11 +1,11 @@
-import { useGetCommitsQuery } from "@/redux/rtk/commits";
-import { CommitCard } from "./CommitCard";
-import Icon from "../common/Icon";
-import { CommitsSkeleton } from "../common/CommitsSkeleton";
 import { CommitResponse, RepoAuthor } from "@/interfaces/viewer-api.interface";
-import { DropDownMenu } from "../common/DropDownMenu";
-import { useEffect, useState, useRef } from "react";
+import { useGetCommitsQuery } from "@/redux/rtk/commits";
+import { useMemo, useState } from "react";
+import { ActionBar } from "../common/ActionBar";
+import { CommitsSkeleton } from "../common/CommitsSkeleton";
+import Icon from "../common/Icon";
 import { Pagination } from "../common/Pagination";
+import { CommitCard } from "./CommitCard";
 
 export const CommitsContainer = () => {
   const response = useGetCommitsQuery("commit-viewer-client");
@@ -16,50 +16,15 @@ export const CommitsContainer = () => {
   const authorName = author?.userName;
   const authorDetails = author?.details;
 
-  const [isMobile, setIsMobile] = useState(false);
-  const [showSearch, setShowSearch] = useState(false);
-  const [searcjQuery, setSearchQuery] = useState("");
-  const searchRef = useRef<HTMLInputElement>(null);
+  const [searcQuery, setSearchQuery] = useState("");
 
-  const handleShowSearch = () => {
-    setShowSearch((prev) => !prev);
-  };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth > 600);
-    };
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [response]);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
-      ) {
-        handleShowSearch();
-      }
-    };
-
-    if (showSearch) {
-      window.addEventListener("mousedown", handleClickOutside);
-    } else {
-      window.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      window.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [showSearch]);
-
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
-  };
+  const filterCommits = useMemo(
+    () =>
+      commits?.filter((commit) => {
+        return commit.message.toLowerCase().includes(searcQuery.toLowerCase());
+      }),
+    [commits, searcQuery]
+  );
 
   return (
     <>
@@ -88,85 +53,19 @@ export const CommitsContainer = () => {
               </span>
             </div>
           </div>
-          <div className="flex justify-between items-center px-5 py-2 w-full bg-slate-800">
-            <div className="flex items-center">
-              <span className="mr-4">Commits</span>
-              <DropDownMenu
-                position={"left"}
-                icon="timeline"
-                btnClass="btn-dark"
-              >
-                <li>
-                  <a>Main</a>
-                </li>
-                <li>
-                  <a>Server</a>
-                </li>
-              </DropDownMenu>
-            </div>
-            <div className="flex items-center">
-              {!isMobile ? (
-                <div className="relative">
-                  <button
-                    className="btn btn-dark mr-2"
-                    onClick={handleShowSearch}
-                  >
-                    <Icon icon="search" />
-                  </button>
-
-                  {showSearch && (
-                    <div
-                      ref={searchRef}
-                      className="absolute top-[55px] right-[-68px] w-screen bg-slate-800 flex items-center justify-center p-4"
-                    >
-                      <input
-                        type="search"
-                        name="search"
-                        onChange={handleSearch}
-                        value={searcjQuery}
-                        placeholder="Search by keyword"
-                        className="px-4 py-3 rounded-lg border-0 focus:border-0 mr-2 w-full"
-                      />
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <input
-                  type="search"
-                  name="search"
-                  onChange={handleSearch}
-                  placeholder="Search by keyword"
-                  value={searcjQuery}
-                  className="px-4 py-3 rounded-lg border-0 focus:border-0 mr-2"
-                />
-              )}
-              <DropDownMenu icon="tune">
-                <li>
-                  <a>Name</a>
-                </li>
-                <li>
-                  <a>Date</a>
-                </li>
-                <li>
-                  <details open>
-                    <summary>Sort by</summary>
-                    <ul>
-                      <li>
-                        <a>Ascending</a>
-                      </li>
-                      <li>
-                        <a>Descending</a>
-                      </li>
-                    </ul>
-                  </details>
-                </li>
-              </DropDownMenu>
-            </div>
-          </div>
+          <ActionBar search={searcQuery} setSearch={setSearchQuery} />
           <div className="overflow-y-auto w-full px-4">
-            {commits.map((commit, index: number) => (
-              <CommitCard commit={commit} key={index} />
-            ))}
+            {filterCommits.length === 0 ? (
+              <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950 lg:min-w-[800px] overflow-hidden">
+                <div className="card-actions bg-gray-900 rounded-md p-4 justify-center">
+                  <p> No commits found with search value</p>
+                </div>
+              </div>
+            ) : (
+              filterCommits.map((commit, index: number) => (
+                <CommitCard commit={commit} key={index} />
+              ))
+            )}
           </div>
           <Pagination amount={commits.length} />
         </section>
