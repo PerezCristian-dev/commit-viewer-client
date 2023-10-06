@@ -6,7 +6,6 @@ const commitsSlice = createSlice({
   initialState: {} as GitHubCommit,
   reducers: {
     setCommits(state, action: PayloadAction<GitHubCommit>) {
-      console.log({ state, action });
       state = action.payload;
     },
   },

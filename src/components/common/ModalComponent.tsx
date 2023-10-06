@@ -16,7 +16,6 @@ export const ModalComponent: React.FC<ModalProps> = ({
   modalRef,
   modalContent,
 }) => {
-  console.log({ modalContent });
   return (
     <>
       <dialog ref={modalRef} className="modal">

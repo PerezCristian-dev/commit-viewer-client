@@ -9,6 +9,7 @@ interface DropDownProps {
   icon?: string;
   btnClass?: string;
   title?: string;
+  isImage?: boolean;
 }
 
 export const DropDownMenu = ({
@@ -17,6 +18,7 @@ export const DropDownMenu = ({
   icon,
   btnClass,
   title,
+  isImage,
 }: DropDownProps) => {
   const menuRef = useRef<HTMLUListElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -52,10 +54,20 @@ export const DropDownMenu = ({
     <div className="relative">
       <button
         ref={buttonRef}
-        className={`btn ${btnClass ?? "btn-square btn-primary"} `}
+        className={
+          isImage
+            ? "btn btn-circle"
+            : `btn ${btnClass ?? "btn-square btn-primary"} `
+        }
         onClick={handleDropDown}
       >
-        {icon && <Icon icon={icon} className="m-0" />}
+        {icon && isImage ? (
+          <img src={icon} className="m-0 rounded-full" />
+        ) : icon ? (
+          <Icon icon={icon} className="m-0" />
+        ) : (
+          ""
+        )}
         {title && <span className="ml-2">{title}</span>}
       </button>
       {isOpen && (

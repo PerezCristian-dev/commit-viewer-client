@@ -2,6 +2,8 @@
 import { store } from "@/redux/store";
 import { Provider } from "react-redux";
 import "./globals.css";
+import { SessionProviderComponent } from "@/components/auth/SessionProviderComponent";
+import Layout from "@/components/Layout";
 
 export default function RootLayout({
   children,
@@ -17,7 +19,11 @@ export default function RootLayout({
         />
       </head>
       <body className="h-screen w-screen">
-        <Provider store={store}>{children}</Provider>
+        <SessionProviderComponent>
+          <Provider store={store}>
+            <Layout>{children}</Layout>
+          </Provider>
+        </SessionProviderComponent>
       </body>
     </html>
   );
