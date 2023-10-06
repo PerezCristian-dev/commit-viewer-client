@@ -5,6 +5,7 @@ import { CommitsSkeleton } from "../common/CommitsSkeleton";
 import { CommitResponse, RepoAuthor } from "@/interfaces/viewer-api.interface";
 import { DropDownMenu } from "../common/DropDownMenu";
 import { useEffect, useState, useRef } from "react";
+import { Pagination } from "../common/Pagination";
 
 export const CommitsContainer = () => {
   const response = useGetCommitsQuery("commit-viewer-client");
@@ -167,14 +168,7 @@ export const CommitsContainer = () => {
               <CommitCard commit={commit} key={index} />
             ))}
           </div>
-          <div className="flex justify-center items-center px-3 p-2 w-full">
-            <div className="join">
-              <button className="join-item btn btn-md">1</button>
-              <button className="join-item btn btn-md btn-primary">2</button>
-              <button className="join-item btn btn-md">3</button>
-              <button className="join-item btn btn-md">4</button>
-            </div>
-          </div>
+          <Pagination amount={commits.length} />
         </section>
       )}
     </>
