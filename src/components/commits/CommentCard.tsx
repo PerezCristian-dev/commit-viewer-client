@@ -16,7 +16,7 @@ export const CommentCard = ({ comment }: CommitCardProps) => {
           <div className="flex items-center">
             <img
               className="w-16 h-16 rounded-full mr-2"
-              src={comment.commiter_avatar}
+              src={comment.user_avatar}
             />
             <div className="items-center">
               <span className="card-title text-[1.1rem] md:text-md">
