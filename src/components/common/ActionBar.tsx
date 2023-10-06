@@ -69,7 +69,7 @@ export const ActionBar = ({
         <DropDownMenu
           position={"left"}
           icon="timeline"
-          btnClass="btn-dark"
+          btnClass="btn-primary"
           title={repo}
         >
           <li onClick={() => setRepo("client")}>

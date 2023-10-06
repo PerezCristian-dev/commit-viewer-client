@@ -57,7 +57,7 @@ export const DropDownMenu = ({
         className={
           isImage
             ? "btn btn-circle"
-            : `btn ${btnClass ?? "btn-square btn-primary"} `
+            : `btn  ${btnClass ?? "btn-square btn-primary"} `
         }
         onClick={handleDropDown}
       >
@@ -73,7 +73,7 @@ export const DropDownMenu = ({
       {isOpen && (
         <ul
           ref={menuRef}
-          className={`menu bg-base-200 w-56 rounded-box absolute ${
+          className={`menu bg-slate-900 w-56 rounded-box absolute ${
             position === "left" ? "left-0" : "right-0"
           } top-[50px] shadow-lg`}
         >
