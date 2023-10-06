@@ -7,6 +7,7 @@ export default function Home() {
   const session = useSession({
     required: true,
     onUnauthenticated: () => redirect("/"),
+    
   });
 
   return session.status === "authenticated" && <CommitsContainer />;
