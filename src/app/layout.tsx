@@ -18,7 +18,7 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </head>
-      <body className="h-screen w-screen">
+      <body className="h-screen w-screen bg-black text-white">
         <SessionProviderComponent>
           <Provider store={store}>
             <Layout>{children}</Layout>
