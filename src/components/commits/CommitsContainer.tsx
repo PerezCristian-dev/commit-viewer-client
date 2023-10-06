@@ -14,7 +14,6 @@ import { ModalComponent } from "../common/ModalComponent";
 
 export const CommitsContainer = () => {
   const [repo, setRepo] = useState("client");
-  console.log({repo})
   const response = useGetCommitsQuery(`commit-viewer-${repo}`);
   const { isLoading, currentData } = response;
   const author: RepoAuthor = currentData?.author;
