@@ -13,7 +13,7 @@ export const commitsRTKProvider = createApi({
   }),
   endpoints: (builder) => ({
     getCommits: builder.query({
-      query: (repo) => `repos/PerezCristian-dev/${repo}/commits`,
+      query: (repo) => `/commits/PerezCristian-dev/${repo}`,
     }),
   }),
 });
