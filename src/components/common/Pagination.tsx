@@ -3,10 +3,15 @@ import Icon from "./Icon";
 
 interface PaginationProps {
   amount: number;
+  handlePageChange: (page: number) => void;
+  currentPage: number;
 }
 
-export const Pagination = ({ amount }: PaginationProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
+export const Pagination = ({
+  amount,
+  handlePageChange,
+  currentPage,
+}: PaginationProps) => {
   const itemsPerPage = 5;
 
   const totalPages = Math.ceil(amount / itemsPerPage);
@@ -15,10 +20,6 @@ export const Pagination = ({ amount }: PaginationProps) => {
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
 
   const renderPageNumbers = pageNumbers.map((number) => (
     <button
@@ -31,7 +32,7 @@ export const Pagination = ({ amount }: PaginationProps) => {
   ));
 
   return (
-    <div className="flex justify-center items-center px-3 p-2 w-full">
+    <div className="flex justify-center items-center px-3 p-2 w-full absolute bottom-0 bg-black">
       <div className="join">
         <button
           className="btn btn-md"

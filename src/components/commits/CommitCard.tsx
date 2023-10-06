@@ -5,14 +5,14 @@ import Icon from "../common/Icon";
 
 interface CommitCardProps {
   commit: CommitResponse;
+  count?: number;
 }
-export const CommitCard = ({ commit }: CommitCardProps) => {
+export const CommitCard = ({ commit, count }: CommitCardProps) => {
   const commitDate = commit.date;
   const timeStatus: string = getTimeStatus(new Date(commitDate));
-  const commentCount = commit.comments[0] === null ? 0 : commit.comments.length;
 
   return (
-    <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950 lg:min-w-[800px] lg:max-w-[800px]">
+    <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950 lg:min-w-[800px] lg:max-w-[800px] overflow-x-hidden">
       <div className="card-body p-4 md:p-6">
         <div className="flex items-center px-3 justify-between">
           <div className="flex items-center">
@@ -42,7 +42,7 @@ export const CommitCard = ({ commit }: CommitCardProps) => {
         <div className="flex justify-end items-center">
           <Icon icon="comment" className="mr-2" />
           <span className="flex items-center justify-center bg-gray-700 rounded-full w-6 h-6">
-            {commentCount}
+            {count}
           </span>
         </div>
       </div>

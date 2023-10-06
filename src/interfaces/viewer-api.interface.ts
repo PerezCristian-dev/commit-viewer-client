@@ -52,4 +52,5 @@ export interface RepoAuthor {
 export interface CommitResponseI {
   author: RepoAuthor;
   commits: Array<CommitResponse>;
+  commits_count: number;
 }

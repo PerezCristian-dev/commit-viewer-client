@@ -15,10 +15,19 @@ export const CommitsContainer = () => {
   const authorAvatar = author?.avatar;
   const authorName = author?.userName;
   const authorDetails = author?.details;
+  const commitCount: number = currentData?.commit_count;
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(commitCount / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const [searcQuery, setSearchQuery] = useState("");
 
-  const filterCommits = useMemo(
+  let filterCommits = useMemo(
     () =>
       commits?.filter((commit) => {
         return commit.message.toLowerCase().includes(searcQuery.toLowerCase());
@@ -26,12 +35,18 @@ export const CommitsContainer = () => {
     [commits, searcQuery]
   );
 
+  if (filterCommits) {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    filterCommits = filterCommits.slice(indexOfFirstItem, indexOfLastItem);
+  }
+
   return (
     <>
       {isLoading ? (
         <CommitsSkeleton />
       ) : (
-        <section className="flex flex-col md:max-h-[calc(100%-130px)] h-[100%] max-w-7xl items-center md:border rounded-md overflow-hidden bg-gray-950">
+        <section className="flex flex-col md:max-h-[calc(100%-130px)] h-[100%] max-w-7xl items-center md:border rounded-md overflow-hidden bg-gray-950 relative">
           <div className="w-full flex p-4 justify-between items-center md:border md:border-slate-800 bg-black">
             <a
               className="flex items-center md:text-xl w-[65%] mr-2"
@@ -47,14 +62,14 @@ export const CommitsContainer = () => {
             <div className="flex items-center w-[150px] justify-center">
               <Icon icon="restore" className="mr-2" />
               <span>
-                {commits.length > 1
-                  ? `${commits.length} commits`
-                  : `${commits.length} commit`}
+                {commitCount > 1
+                  ? `${commitCount} commits`
+                  : `${commitCount} commit`}
               </span>
             </div>
           </div>
           <ActionBar search={searcQuery} setSearch={setSearchQuery} />
-          <div className="overflow-y-auto w-full px-4">
+          <div className="overflow-y-auto w-full px-4 max-h-[calc(100%-200px)]">
             {filterCommits.length === 0 ? (
               <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950 lg:min-w-[800px] overflow-hidden">
                 <div className="card-actions bg-gray-900 rounded-md p-4 justify-center">
@@ -63,11 +78,15 @@ export const CommitsContainer = () => {
               </div>
             ) : (
               filterCommits.map((commit, index: number) => (
-                <CommitCard commit={commit} key={index} />
+                <CommitCard commit={commit} key={index} count={commitCount} />
               ))
             )}
           </div>
-          <Pagination amount={commits.length} />
+          <Pagination
+            amount={commits.length}
+            handlePageChange={handlePageChange}
+            currentPage={currentPage}
+          />
         </section>
       )}
     </>
