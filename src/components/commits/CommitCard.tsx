@@ -7,9 +7,10 @@ interface CommitCardProps {
   commit: CommitResponse;
   count?: number;
 }
-export const CommitCard = ({ commit, count }: CommitCardProps) => {
+export const CommitCard = ({ commit }: CommitCardProps) => {
   const commitDate = commit.date;
   const timeStatus: string = getTimeStatus(new Date(commitDate));
+  const commentCount = commit.comments[0] === null ? 0 : commit.comments.length;
 
   return (
     <div className="rounded-xl shadow-xl border my-3 border-slate-700 bg-gray-950 lg:min-w-[800px] lg:max-w-[800px] overflow-x-hidden">
@@ -42,7 +43,7 @@ export const CommitCard = ({ commit, count }: CommitCardProps) => {
         <div className="flex justify-end items-center">
           <Icon icon="comment" className="mr-2" />
           <span className="flex items-center justify-center bg-gray-700 rounded-full w-6 h-6">
-            {count}
+            {commentCount}
           </span>
         </div>
       </div>

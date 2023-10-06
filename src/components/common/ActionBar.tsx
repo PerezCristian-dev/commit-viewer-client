@@ -4,9 +4,16 @@ import Icon from "./Icon";
 
 interface ActionBarProps {
   search: string;
+  sortBy: string;
   setSearch: (search: string) => void;
+  setSortBy: (sortBy: string) => void;
 }
-export const ActionBar = ({ search, setSearch }: ActionBarProps) => {
+export const ActionBar = ({
+  search,
+  sortBy,
+  setSearch,
+  setSortBy,
+}: ActionBarProps) => {
   const [isMobile, setIsMobile] = useState(true);
   const [showSearch, setShowSearch] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -55,14 +62,14 @@ export const ActionBar = ({ search, setSearch }: ActionBarProps) => {
     <div className="flex justify-between items-center px-5 py-2 w-full bg-slate-800">
       <div className="flex items-center">
         <span className="mr-4">Commits</span>
-        <DropDownMenu position={"left"} icon="timeline" btnClass="btn-dark">
+        {/* <DropDownMenu position={"left"} icon="timeline" btnClass="btn-dark">
           <li>
             <a>Main</a>
           </li>
           <li>
             <a>Server</a>
           </li>
-        </DropDownMenu>
+        </DropDownMenu> */}
       </div>
       <div className="flex items-center">
         {!isMobile ? (
@@ -98,24 +105,14 @@ export const ActionBar = ({ search, setSearch }: ActionBarProps) => {
           />
         )}
         <DropDownMenu icon="filter_list">
-          <li>
-            <a>Name</a>
+          <li onClick={() => setSortBy("newest")}>
+            <a>{sortBy === "newest" && <Icon icon="check" />}Sort by Newest</a>
           </li>
-          <li>
-            <a>Date</a>
-          </li>
-          <li>
-            <details open>
-              <summary>Sort by</summary>
-              <ul>
-                <li>
-                  <a>Ascending</a>
-                </li>
-                <li>
-                  <a>Descending</a>
-                </li>
-              </ul>
-            </details>
+          <li onClick={() => setSortBy("oldest")}>
+            <a>
+              {sortBy === "oldest" && <Icon icon="check" className="mr-2" />}
+              Sort by Oldest
+            </a>
           </li>
         </DropDownMenu>
       </div>
