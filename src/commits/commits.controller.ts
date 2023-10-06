@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { CommitsService } from './commits.service';
 import { ApiTags, ApiResponse, ApiOperation } from '@nestjs/swagger';
@@ -23,8 +24,10 @@ export class CommitsController {
   getAllCommits(
     @Param('username') userName: string,
     @Param('reponame') repoName: string,
+    @Query('offset') offset: number,
+    @Query('limit') limit: number,
   ) {
-    return this.commitsService.getAllCommits(userName, repoName);
+    return this.commitsService.getAllCommits(userName, repoName, offset, limit);
   }
 
   @Get('comments/:username/:reponame')
