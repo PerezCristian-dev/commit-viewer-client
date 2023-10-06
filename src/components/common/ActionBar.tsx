@@ -5,12 +5,16 @@ import Icon from "./Icon";
 interface ActionBarProps {
   search: string;
   sortBy: string;
+  repo: string;
   setSearch: (search: string) => void;
   setSortBy: (sortBy: string) => void;
+  setRepo: (repo: string) => void;
 }
 export const ActionBar = ({
   search,
   sortBy,
+  repo,
+  setRepo,
   setSearch,
   setSortBy,
 }: ActionBarProps) => {
@@ -62,14 +66,25 @@ export const ActionBar = ({
     <div className="flex justify-between items-center px-5 py-2 w-full bg-slate-800">
       <div className="flex items-center">
         <span className="mr-4">Commits</span>
-        {/* <DropDownMenu position={"left"} icon="timeline" btnClass="btn-dark">
-          <li>
-            <a>Main</a>
+        <DropDownMenu
+          position={"left"}
+          icon="timeline"
+          btnClass="btn-dark"
+          title={repo}
+        >
+          <li onClick={() => setRepo("client")}>
+            <a>
+              {repo === "client" && <Icon icon="check" className="mr-2" />}
+              Client
+            </a>
           </li>
-          <li>
-            <a>Server</a>
+          <li onClick={() => setRepo("server")}>
+            <a>
+              {repo === "server" && <Icon icon="check" className="mr-2" />}
+              Server
+            </a>
           </li>
-        </DropDownMenu> */}
+        </DropDownMenu>
       </div>
       <div className="flex items-center">
         {!isMobile ? (

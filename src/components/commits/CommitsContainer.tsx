@@ -13,7 +13,9 @@ import { CommitCard } from "./CommitCard";
 import { ModalComponent } from "../common/ModalComponent";
 
 export const CommitsContainer = () => {
-  const response = useGetCommitsQuery("commit-viewer-client");
+  const [repo, setRepo] = useState("client");
+  console.log({repo})
+  const response = useGetCommitsQuery(`commit-viewer-${repo}`);
   const { isLoading, currentData } = response;
   const author: RepoAuthor = currentData?.author;
   const commits: CommitResponse[] = currentData?.commits;
@@ -114,7 +116,7 @@ export const CommitsContainer = () => {
                 src={authorAvatar}
                 alt="avatar"
               />
-              <span className="truncate">{`${authorName} / ${"commit-viewer-client"} `}</span>
+              <span className="truncate">{`${authorName || "...loading"} / commit-viewer-${repo}`}</span>
             </a>
             <div className="flex items-center w-[150px] justify-center">
               <Icon icon="restore" className="mr-2" />
@@ -130,6 +132,8 @@ export const CommitsContainer = () => {
             setSearch={setSearchQuery}
             sortBy={sortBy}
             setSortBy={setSortBy}
+            repo={repo}
+            setRepo={setRepo}
           />
           <div className="overflow-y-auto w-full px-4 max-h-[calc(100%-200px)]">
             {filteredAndSortedCommits.length === 0 ? (
@@ -150,7 +154,7 @@ export const CommitsContainer = () => {
             )}
           </div>
           <Pagination
-            amount={commits.length}
+            amount={commits?.length}
             handlePageChange={handlePageChange}
             currentPage={currentPage}
           />
