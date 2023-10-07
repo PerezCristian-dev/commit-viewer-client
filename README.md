@@ -24,13 +24,14 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+The Commit Viewer API is a powerfull API that allows you to see commits on a specific project powered by [Nest](https://github.com/nestjs/nest) framework and TypeScript.
 
 ## Installation
 
 ```bash
 $ npm install
 ```
+***After the installion is completed you will need to manually genarate a github token (https://github.com/settings/tokens) and add it to the .env file. Add it as GITHUB_AUTH_TOKEN = "YOUR_TOKEN", after that you can proceed to the next steps.***
 
 ## Running the app
 
