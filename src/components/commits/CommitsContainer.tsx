@@ -103,7 +103,7 @@ export const CommitsContainer = () => {
       ) : isLoading ? (
         <CommitsSkeleton />
       ) : (
-        <section className="flex flex-col items-center w-full md:max-h-[calc(100%-130px)] h-[100%] md:border rounded-md overflow-hidden bg-gray-950 relative md:max-w-[1000px] md:min-w-[768px]">
+        <section className="flex flex-col items-center w-full md:max-h-[calc(100%-130px)] h-[100%] md:border border-slate-700 rounded-md overflow-hidden bg-gray-950 relative md:max-w-[1024px] md:min-w-[768px] md:shadow-2xl">
           <ModalComponent
             title="Commit Comments"
             onClose={closeModal}
