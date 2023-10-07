@@ -15,10 +15,16 @@ export class GithubService {
     repo: string,
     offset: number,
     limit: number,
+    authorizationHeader: string,
   ): Promise<Array<GitHubCommit>> {
     const url = `${this.githubApiBaseUrl}/repos/${username}/${repo}/commits?page=${offset}&per_page=${limit}`;
+
     try {
-      const response = await axios.get(url, { headers: this.headers });
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: authorizationHeader,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error({

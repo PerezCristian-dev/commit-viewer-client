@@ -17,12 +17,14 @@ export class CommitsService {
     repoName: string,
     offset: number,
     limit: number,
+    authorizationHeader: string,
   ): Promise<CommitResponseI> {
     const commits = await this.githubService.getCommits(
       userName,
       repoName,
       offset,
       limit,
+      authorizationHeader,
     );
 
     const comments = await this.getAllComments(userName, repoName);
