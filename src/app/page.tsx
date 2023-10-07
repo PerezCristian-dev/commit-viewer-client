@@ -1,9 +1,8 @@
 import { authConfig } from "@/lib/auth";
-import { signIn, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
-
 import { getServerSession } from "next-auth";
 import { SignInButton } from "@/components/auth/SignInButton";
+
 const SignInPage = async () => {
   const session = await getServerSession(authConfig);
 

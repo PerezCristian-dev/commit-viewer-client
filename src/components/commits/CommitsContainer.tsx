@@ -115,7 +115,9 @@ export const CommitsContainer = () => {
                 src={authorAvatar}
                 alt="avatar"
               />
-              <span className="truncate">{`${authorName || "...loading"} / commit-viewer-${repo}`}</span>
+              <span className="truncate">{`${
+                authorName || "...loading"
+              } / commit-viewer-${repo}`}</span>
             </a>
             <div className="flex items-center w-[150px] justify-center">
               <Icon icon="restore" className="mr-2" />

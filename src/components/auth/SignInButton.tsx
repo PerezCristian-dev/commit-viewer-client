@@ -1,5 +1,5 @@
 "use client";
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import { signIn } from "next-auth/react";
 
 export const SignInButton = () => {
