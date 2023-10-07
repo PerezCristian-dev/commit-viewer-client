@@ -30,8 +30,8 @@ export const ModalComponent: React.FC<ModalProps> = ({
           </form>
           <h3 className="font-bold text-lg">{title}</h3>
           <div className="max-h-[300px] overflow-auto">
-            {modalContent?.map((comment) => (
-              <CommentCard comment={comment} />
+            {modalContent?.map((comment, index) => (
+              <CommentCard comment={comment} key={index + Math.random()} />
             ))}
           </div>
         </div>

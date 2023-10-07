@@ -16,10 +16,7 @@ export const commitsRTKProvider = createApi({
     },
     prepareHeaders: (headers) => {
       const token = getAccessToken();
-
-      // If we have a token set in state, let's assume that we should be passing it.
       if (token) {
-        console.log({ token });
         headers.set("authorization", `Bearer ${token}`);
       }
       return headers;
