@@ -20,14 +20,13 @@ export class GithubService {
     const url = `${this.githubApiBaseUrl}/repos/${username}/${repo}/commits?page=${offset}&per_page=${limit}`;
 
     try {
+      const headers = { Authorization: authorizationHeader };
       const response = await axios.get(url, {
-        headers: {
-          Authorization: authorizationHeader,
-        },
+        headers: headers || this.headers,
       });
       return response.data;
     } catch (error) {
-      console.error({
+      console.log({
         status: error.response.status,
         message: error.response.statusText,
         error: error.message,
