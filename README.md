@@ -30,9 +30,11 @@ Install the required dependencies using npm:
 
 # Usage
 After installing the dependencies, you can use the following scripts to interact with the application:
+
 Make sure you have the server running before initializing the project. You can clone the server using:
-`git clone https://github.com/PerezCristian-dev/commit-viewer-server.git` and go to `https://github.com/PerezCristian-dev/commit-viewer-server.git`
-for details on how to run.
+`git clone https://github.com/PerezCristian-dev/commit-viewer-server.git` 
+
+and go to (https://github.com/PerezCristian-dev/commit-viewer-server.git) for details on how to run.
 
 To run the application in development mode:
 `npm run dev`
